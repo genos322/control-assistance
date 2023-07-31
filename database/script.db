@@ -1,0 +1,11 @@
+create database controlassistance;
+use controlassistance;
+
+create table users(
+    idUser varchar(8) primary key,
+    name varchar(40) not null,
+    lastname varchar(40) not null,
+    rol char(30) not null,
+    created_at datetime not null,
+    updated_at datetime not null
+);
