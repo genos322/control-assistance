@@ -45,4 +45,3 @@ create table payments(
     foreign key (idParticipant) references participants(idParticipant),
     foreign key (idEvent) references events(idEvent)
 ) engine=innodb;
-)
