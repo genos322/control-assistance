@@ -13,12 +13,12 @@ class TParticipants extends Model
 
     public function tEvents()
     {
-        return $this->belongsTo('App\Model\TEvents', 'idEvent');
+        return $this->belongsTo(TEvents::class, 'idEvent');
     }
 
     public function tPayments()
     {
-        return $this->hasMany('App\Model\TPayments', 'idParticipant');
+        return $this->belongsTo(TPayments::class, 'idParticipant');
     }
 
 }
