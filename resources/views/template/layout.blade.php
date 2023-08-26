@@ -12,9 +12,11 @@
 	<link rel="stylesheet" href="{{asset('plugins/adminlte/font-awesome/css/font-awesome.min.css')}}">
 	<!-- Theme style -->
 	<link rel="stylesheet" href="{{asset('css/adminlte/AdminLTE.min.css')}}">
+
 	<!-- AdminLTE Skins. Choose a skin from the css/skins
 			 folder instead of downloading all of them to reduce the load. -->
 	<link rel="stylesheet" href="{{asset('css/adminlte/skin-blue.css')}}">
+
 	<!-- iCheck -->
 	{{-- <link rel="stylesheet" href="plugins/iCheck/flat/blue.css">
 	<!-- Morris chart -->
@@ -48,7 +50,7 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 							<img src="" class="user-image" alt="User Image">
 							<span class="hidden-xs">-------</span>
-						</a>
+						</a>{{Session::get('user')}}
 						<ul class="dropdown-menu">
 							<!-- User image -->
 							<li class="user-header">
@@ -106,7 +108,7 @@
 
 	<!-- Content Wrapper. Contains page content -->
 	<div class="content-wrapper" style="height: 100vh">
-		<section class="body">
+		<section class="content">
 			@yield('content')
 		</section>
 
@@ -124,7 +126,6 @@
 			 immediately after the control sidebar -->
 	<div class="control-sidebar-bg"></div>
 </div>
-<!-- ./wrapper -->
 
 <!-- jQuery 2.2.0 -->
 <script src="{{asset('js/adminlte/jQuery-2.2.0.min.js')}}"></script>
@@ -163,5 +164,9 @@
 {{-- <script src="dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script> --}}
+{{-- script validaciones --}}
+<script src="{{asset('plugins/formvalidation/formValidation.min.js')}}"></script>
+<script src="{{asset('plugins/formvalidation/bootstrap.validation.min.js')}}"></script>
+@yield('js')
 </body>
 </html>

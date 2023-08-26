@@ -6,9 +6,28 @@
     <title>Login</title>
 	<link rel="stylesheet" href="{{asset('viewreources/css/login.css')}}">
 	<link rel="stylesheet" href="{{asset('css/bootstrap/bootstrap5_0.css')}}">
+	<link rel="stylesheet" href="{{asset('plugins/adminlte/font-awesome/css/font-awesome.min.css')}}">
+	<link rel="stylesheet" href="{{asset('plugins/toastr/toastr.min.css')}}">
+
+	<script src="{{asset('js/jquery3-7-0.min.js')}}"></script>
+	<script src="{{asset('plugins/toastr/toastr.min.js')}}"></script>
+
 </head>
-<body>    
+<body>
     <main>
+		<script>
+			$(function(){
+				@if(Session::has('messageGlobal'))
+				@foreach (Session::get('messageGlobal') as $value )
+					toastr.options = {
+						"progressBar": true,
+						"timeOut": "3000",
+					}
+					toastr.error("{{ $value}}");
+				@endforeach
+				@endif
+			});
+		</script>
 		<div class="form-box">
 			<form class="form needs-validation" action="{{url('admin/panel')}}"  method="POST" novalidate>
 				<span class="title">Iniciar Sesión</span>
@@ -20,8 +39,11 @@
 							Ingrese un correo válido.
 						</div>
 					</div>
-					<div class="col-12 mt-2  position-relative">
+					<div class="col-12 mt-2  password-field">
 						<input type="password" id="txtPassword" class="w-100" name="txtPassword" placeholder="Contraseña" required>
+						<span class="toggle-password" onclick="togglePasswordVisibility()">
+							<i class="fa fa-eye" id="eyeCheck"></i>
+						</span>
 						<div class="invalid-tooltip">
 							Contraseña requerida.
 						</div>

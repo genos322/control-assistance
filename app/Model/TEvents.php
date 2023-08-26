@@ -2,6 +2,7 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class TEvents extends Model
 {
@@ -11,9 +12,9 @@ class TEvents extends Model
 	public $incrementing=false;
 	public $timestamps=true;
     
-    public function tparticipants()
+    public function tparticipants():HasMany
     {
-        return $this->belongsTo('App\Model\TParticipants', 'idEvent');
+        return $this->HasMany(TParticipants::class, 'idEvent');
     }
 }
 ?>

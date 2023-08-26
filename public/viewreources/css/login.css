@@ -3,9 +3,6 @@ body{
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
-
-}
-main{
   display:flex;
   justify-content:center;
   align-items:center;
@@ -97,3 +94,19 @@ main{
   .form button:hover {
     background-color: #005ce6;
   }
+  .password-field {
+    position: relative;
+  }
+  
+  .password-field input[type="password"] {
+    padding-right: 40px; /* Espacio para el ícono */
+  }
+  
+  .password-field .toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+  
