@@ -4,22 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-	<link rel="stylesheet" href="{{asset('plugins/pnotify/pnotify.min.css')}}">
 	<link rel="stylesheet" href="{{asset('viewreources/css/login.css')}}">
 	<link rel="stylesheet" href="{{asset('css/bootstrap/bootstrap5_0.css')}}">
 	<link rel="stylesheet" href="{{asset('plugins/adminlte/font-awesome/css/font-awesome.min.css')}}">
-	<script src="{{asset('plugins/pnotify/pnotify.min.js')}}"></script>
+	<link rel="stylesheet" href="{{asset('plugins/toastr/toastr.min.css')}}">
+
+	<script src="{{asset('js/jquery3-7-0.min.js')}}"></script>
+	<script src="{{asset('plugins/toastr/toastr.min.js')}}"></script>
 
 </head>
 <body>
     <main>
 		<script>
-			document.addEventListener('DOMContentLoaded', function() {
-				PNotify.alert({
-    			  text: 'Notice me, senpai!',
-				  delay: 200000,
-				});
-			});	
+			$(function(){
+				@if(Session::has('messageGlobal'))
+				@foreach (Session::get('messageGlobal') as $value )
+					toastr.options = {
+						"progressBar": true,
+						"timeOut": "3000",
+					}
+					toastr.error("{{ $value}}");
+				@endforeach
+				@endif
+			});
 		</script>
 		<div class="form-box">
 			<form class="form needs-validation" action="{{url('admin/panel')}}"  method="POST" novalidate>

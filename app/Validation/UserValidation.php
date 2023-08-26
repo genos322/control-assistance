@@ -18,7 +18,7 @@ class UserValidation
         ],
         [
             'email.required' => 'El campo email es requerido',
-            'email.email' => 'El campo email debe ser un email valido',
+            'email.email' => 'El campo email debe ser un email válido',
             'password.required' => 'El campo password es requerido',
         ]
     );

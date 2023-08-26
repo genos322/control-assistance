@@ -8,18 +8,18 @@ use App\Validation\UserValidation;
 use DB;
 
 use App\Model\TUsers;
-use Illuminate\Support\Facades\Session;
+use Session;
 
 
 class UserController extends Controller
 {
-    private $blocMessage=[];
+    private $messageGlobal=[];
     public function actionLogin(Request $request)
     {
-        $this->blocMessage = (new UserValidation())->validateLogin($request);
-        if($this->blocMessage)
+        $this->messageGlobal = (new UserValidation())->validateLogin($request);
+        if($this->messageGlobal)
         {
-            Session::flash('messageGlobal', $this->blocMessage);
+            Session::flash('messageGlobal', $this->messageGlobal);
             Session::flash('type', 'error');
 
             return redirect()->route('login');
@@ -28,10 +28,12 @@ class UserController extends Controller
         $user = TUsers::where('email', $request->input('txtEmail'))->first();
         if(!$user || $user->password != $request->input('txtPassword'))
         {
-            return redirect()->route('login')->with('error', 'Usuario o contraseña incorrectos');
+            Session::flash('messageGlobal', ['Usuario o contraseña incorrectos']);
+            return redirect()->route('login');
         }
         else
         {
+            Session::put('user', $user->name);
             return view('admin.panel', ['user' => $request->input('txtEmail')] );
         }
     }

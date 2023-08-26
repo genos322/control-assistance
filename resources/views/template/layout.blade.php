@@ -50,7 +50,7 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 							<img src="" class="user-image" alt="User Image">
 							<span class="hidden-xs">-------</span>
-						</a>
+						</a>{{Session::get('user')}}
 						<ul class="dropdown-menu">
 							<!-- User image -->
 							<li class="user-header">
