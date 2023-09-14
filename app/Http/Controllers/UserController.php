@@ -8,34 +8,48 @@ use App\Validation\UserValidation;
 use DB;
 
 use App\Model\TUsers;
-use Session;
+use Illuminate\Support\Facades\Session;
 
 
 class UserController extends Controller
 {
     private $messageGlobal=[];
-    public function actionLogin(Request $request)
+    public function actionLogin(Request $request, Session $session)
     {
-        $this->messageGlobal = (new UserValidation())->validateLogin($request);
-        if($this->messageGlobal)
-        {
-            Session::flash('messageGlobal', $this->messageGlobal);
-            Session::flash('type', 'error');
-
-            return redirect()->route('login');
-        }
+        if($_POST)
+        {   
+            $session::flush();
+            try{
+                $this->messageGlobal = (new UserValidation())->validateLogin($request);
+                if($this->messageGlobal)
+                {
+                    $session::flash('messageGlobal', $this->messageGlobal);
+                    $session::flash('type', 'error');
         
-        $user = TUsers::where('email', $request->input('txtEmail'))->first();
-        if(!$user || $user->password != $request->input('txtPassword'))
-        {
-            Session::flash('messageGlobal', ['Usuario o contraseña incorrectos']);
-            return redirect()->route('login');
+                    return redirect()->route('login');
+                }
+                
+                $user = TUsers::where('email', $request->input('txtEmail'))->first();
+                if(!$user || $user->password != $request->input('txtPassword'))
+                {
+                    $session::flash('messageGlobal', ['Usuario o contraseña incorrectos']);
+                    $session::flash('type', 'error');
+                    return redirect()->route('login');
+                }
+        
+                $session::put('user', $user->name);
+                $session::put('mainRole', $user->rol);
+                return view('admin.panel');
+            }
+            catch(\Exception $e)
+            {
+                $session::flash('messageGlobal', ['Error al iniciar sesión']);
+                $session::flash('type', 'error');
+    
+                return redirect()->route('login');
+            }
         }
-        else
-        {
-            Session::put('user', $user->name);
-            return view('admin.panel', ['user' => $request->input('txtEmail')] );
-        }
+        return view('login');
     }
 }
 ?>

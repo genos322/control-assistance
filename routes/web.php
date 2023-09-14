@@ -4,10 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 
-Route::get('login', function () {
-    return view('login');
-})->name('login');
+Route::match(['get','post'],'login',[UserController::class, 'actionLogin'])->name('login')->middleware('generic:login');
 
-Route::post('admin/panel', [UserController::class, 'actionLogin']);
+Route::get('admin/panel', [AdminController::class, 'adminPanel'])->name('admin.panel')->middleware('generic:admin/panel');
 
-Route::match(['get','post'],'admin/insert', [AdminController::class, 'insert'])->name('admin.insert');
+Route::match(['get','post'],'admin/insert', [AdminController::class, 'insert'])->name('admin.insert')->middleware('generic:admin/insert');

@@ -6,6 +6,8 @@
 	<title>Assitance</title>
 	<!-- Tell the browser to be responsive to screen width -->
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+	{{-- sweetalert --}}
+	<link rel="stylesheet" href="{{asset('plugins/sweetalert2/sweetalert2.min.css')}}">
 	<!-- Bootstrap 3.3.6 -->
 	<link rel="stylesheet" href="{{asset('css/adminlte/bootstrap.min.css')}}">
 	<!-- Font Awesome -->
@@ -16,7 +18,8 @@
 	<!-- AdminLTE Skins. Choose a skin from the css/skins
 			 folder instead of downloading all of them to reduce the load. -->
 	<link rel="stylesheet" href="{{asset('css/adminlte/skin-blue.css')}}">
-
+	{{-- toastr --}}
+	<link rel="stylesheet" href="{{asset('plugins/toastr/toastr.min.css')}}">
 	<!-- iCheck -->
 	{{-- <link rel="stylesheet" href="plugins/iCheck/flat/blue.css">
 	<!-- Morris chart -->
@@ -27,6 +30,10 @@
 	<link rel="stylesheet" href="{{asset('plugins/adminlte/datepicker/datepicker3.css')}}">
 	<!-- Daterange picker -->
 	{{-- <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker-bs3.css"> --}}
+
+	<!-- jQuery 2.2.0 -->
+	<script src="{{asset('js/adminlte/jQuery-2.2.0.min.js')}}"></script>
+
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -50,7 +57,7 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 							<img src="" class="user-image" alt="User Image">
 							<span class="hidden-xs">-------</span>
-						</a>{{Session::get('user')}}
+						</a>
 						<ul class="dropdown-menu">
 							<!-- User image -->
 							<li class="user-header">
@@ -105,7 +112,30 @@
 		</section>
 		<!-- /.sidebar -->
 	</aside>
+	<script>
+		$(function(){
+			@if(Session::has('messageGlobal'))
+			@foreach (Session::get('messageGlobal') as $value )
+				toastr.options = {
+					"progressBar": true,
+					"timeOut": "3000",
+				}
+				toastr.error("{{ $value}}");
+			@endforeach
+			@else
+			swal({
+				title: "Error",
+				text: "No se pudo realizar la operación",
+				type: "error",
+				confirmButtonText: "Aceptar",
+				closeOnConfirm: false
+			});
+			@endif
 
+
+
+		});
+	</script>
 	<!-- Content Wrapper. Contains page content -->
 	<div class="content-wrapper" style="height: 100vh">
 		<section class="content">
@@ -127,8 +157,8 @@
 	<div class="control-sidebar-bg"></div>
 </div>
 
-<!-- jQuery 2.2.0 -->
-<script src="{{asset('js/adminlte/jQuery-2.2.0.min.js')}}"></script>
+{{-- toastr --}}
+<script src="{{asset('plugins/toastr/toastr.min.js')}}"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -164,6 +194,8 @@
 {{-- <script src="dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script> --}}
+{{-- sweealert2 --}}
+<script src="{{asset('plugins/sweetalert2/sweetalert2.min.js')}}"></script>
 {{-- script validaciones --}}
 <script src="{{asset('plugins/formvalidation/formValidation.min.js')}}"></script>
 <script src="{{asset('plugins/formvalidation/bootstrap.validation.min.js')}}"></script>
