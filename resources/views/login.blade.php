@@ -29,7 +29,7 @@
 			});
 		</script>
 		<div class="form-box">
-			<form class="form needs-validation" action="{{url('admin/panel')}}"  method="POST" novalidate>
+			<form class="form needs-validation" action="{{url('login')}}"  method="POST" novalidate>
 				<span class="title">Iniciar Sesión</span>
 				<span class="subtitle">Ingrese su correo y contraseña</span>
 				<div class="row">
