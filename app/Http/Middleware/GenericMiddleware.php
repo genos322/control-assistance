@@ -13,7 +13,6 @@ class GenericMiddleware
 		$allowUrl=
 		[
 			['Administrador', '', 'mPrincipal', 'miPagePrincipal'],
-
 			['Público', 'login', null, null],
 			['Público', 'logout', null, null],
             ['Administrador', 'admin/panel', null, null],
@@ -60,4 +59,3 @@ class GenericMiddleware
 		return $next($request);
 	}
 }
-?>

@@ -39,7 +39,9 @@ class UserController extends Controller
         
                 $session::put('user', $user->name);
                 $session::put('mainRole', $user->rol);
-                return view('admin.panel');
+                $session::flash('messageGlobal', ['Bienvenido '.$user->name]);
+                $session::flash('type', 'success');
+                return redirect('admin/panel');
             }
             catch(\Exception $e)
             {
@@ -51,5 +53,12 @@ class UserController extends Controller
         }
         return view('login');
     }
+    public function actionLogout(Request $request, Session $session)
+    {
+        $session::flush();
+        $session::flash('messageGlobal', ['Sesión cerrada correctamente']);
+        $session::flash('type', 'success');
+
+        return redirect()->route('login');
+    }
 }
-?>

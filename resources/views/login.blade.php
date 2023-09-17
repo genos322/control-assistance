@@ -50,11 +50,11 @@
 					</div>
 				</div>
 					@csrf
-					<button type="submit">Ingresar</button>
+					<button >Ingresar</button>
 			</form>
 		</div>
     </main>
 </body>
 </html>
-<script src="{{asset('js/bootstrap/bootstrap.js')}}"></script>l
+<script src="{{asset('js/bootstrap/bootstrap.js')}}"></script>
 <script src="{{asset('viewreources/js/login.js')}}"></script>
