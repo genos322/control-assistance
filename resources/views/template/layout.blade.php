@@ -70,7 +70,7 @@
 							<!-- Menu Footer-->
 							<li class="user-footer">
 								<div class="pull-right">
-									<a href="#" class="btn btn-default btn-flat">Cerrar sesión</a>
+									<a href="{{route('logout')}}" class="btn btn-default btn-flat">Cerrar sesión</a>
 								</div>
 							</li>
 						</ul>
@@ -113,27 +113,26 @@
 		<!-- /.sidebar -->
 	</aside>
 	<script>
-		$(function(){
+		$(function()
+		{
 			@if(Session::has('messageGlobal'))
-			@foreach (Session::get('messageGlobal') as $value )
-				toastr.options = {
-					"progressBar": true,
-					"timeOut": "3000",
-				}
-				toastr.error("{{ $value}}");
-			@endforeach
-			@else
-			swal({
-				title: "Error",
-				text: "No se pudo realizar la operación",
-				type: "error",
-				confirmButtonText: "Aceptar",
-				closeOnConfirm: false
-			});
+				@if(Session::get('type') == ('error'))				
+					@foreach (Session::get('messageGlobal') as $value )
+						toastr.options = {
+							"progressBar": true,
+							"timeOut": "3000",
+						}
+						toastr.error("{{ $value}}");
+					@endforeach
+				@else
+					new swal({
+						title: '{{Session::get('type')=='success' ? 'Correcto' : 'Alerta'}}',
+						text: '{!!Session::get('globalMessage')!!}',
+						icon: '{{Session::get('type')}}',
+						timer: {{Session::get('type')=='success' ? '1500' : '60000'}}
+					});
+				@endif
 			@endif
-
-
-
 		});
 	</script>
 	<!-- Content Wrapper. Contains page content -->
